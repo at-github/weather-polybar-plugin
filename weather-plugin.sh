@@ -301,7 +301,7 @@ function setIcons {
 }
 
 function outputCompact {
-    OUTPUT="$WIND %{T$WEATHER_FONT_CODE}$ICON%{T-} $ERR_MSG$COLOR_TEXT_BEGIN$DESCRIPTION$COLOR_TEXT_END| $TEMP"
+    OUTPUT="$WIND %{T$WEATHER_FONT_CODE}$ICON%{T-} $ERR_MSG$COLOR_TEXT_BEGIN$DESCRIPTION$COLOR_TEXT_END | $TEMP"
     # echo "Output: $OUTPUT" >> "$HOME/.weather.log"
     echo "$OUTPUT "
 }
@@ -317,7 +317,8 @@ if [ $ERROR -eq 0 ]; then
     WIND=""
     TEMP=`echo $RESPONSE | jq .main.temp`
     if [ $DISPLAY_LABEL = "yes" ]; then
-        DESCRIPTION=`echo "$RESPONSE" | jq .weather[0].description | tr -d '"' | sed 's/.*/\L&/; s/[a-z]*/\u&/g'`" "
+        # DESCRIPTION=`echo "$RESPONSE" | jq .weather[0].description | tr -d '"' | sed 's/.*/\L&/; s/[a-z]*/\u&/g'`" "
+        DESCRIPTION=`echo "$RESPONSE" | jq .weather[0].description | tr -d '"' `
     else
         DESCRIPTION=""
     fi
