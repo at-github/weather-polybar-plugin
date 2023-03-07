@@ -215,7 +215,7 @@ function setIcons {
     fi
     WIND=""
     WINDFORCE=`echo "$RESPONSE" | jq .wind.speed`
-    WINDICON=""
+    WINDICON=" "
     if [ $BEAUFORTICON == "yes" ];then
         WINDFORCE2=`echo "scale=$DECIMALS;$WINDFORCE * 3.6 / 1" | bc`
         if [ $WINDFORCE2 -le 1 ]; then
@@ -265,7 +265,7 @@ function setIcons {
         fi
     fi
     if [ "$DISPLAY_WIND" = "yes" ] && [ `echo "$WINDFORCE >= $MIN_WIND" |bc -l` -eq 1 ]; then
-        WIND="%{T$WEATHER_FONT_CODE}%{F$COLOR_WIND}$WINDICON%{F-}%{T-}"
+        WIND="%{T$WEATHER_FONT_CODE}$WINDICON %{T-}"
         if [ $DISPLAY_FORCE = "yes" ]; then
             WIND="$WIND $COLOR_TEXT_BEGIN$WINDFORCE$COLOR_TEXT_END"
             if [ $DISPLAY_WIND_UNIT = "yes" ]; then
@@ -278,7 +278,7 @@ function setIcons {
                 fi
             fi
         fi
-        WIND="$WIND |"
+        WIND="$WIND "
     fi
 
     if [ "$UNITS" = "metric" ]; then
@@ -301,7 +301,7 @@ function setIcons {
 }
 
 function outputCompact {
-    OUTPUT="$WIND %{T$WEATHER_FONT_CODE}$ICON%{T-} $ERR_MSG$COLOR_TEXT_BEGIN$DESCRIPTION$COLOR_TEXT_END | $TEMP"
+    OUTPUT="$WIND %{T$WEATHER_FONT_CODE}$ICON%{T-} $ERR_MSG$COLOR_TEXT_BEGIN$DESCRIPTION$COLOR_TEXT_END  $TEMP"
     # echo "Output: $OUTPUT" >> "$HOME/.weather.log"
     echo "$OUTPUT "
 }
@@ -318,7 +318,7 @@ if [ $ERROR -eq 0 ]; then
     TEMP=`echo $RESPONSE | jq .main.temp`
     if [ $DISPLAY_LABEL = "yes" ]; then
         # DESCRIPTION=`echo "$RESPONSE" | jq .weather[0].description | tr -d '"' | sed 's/.*/\L&/; s/[a-z]*/\u&/g'`" "
-        DESCRIPTION=`echo "$RESPONSE" | jq .weather[0].description | tr -d '"' `
+        DESCRIPTION=`echo "$RESPONSE " | jq .weather[0].description | tr -d '"' `
     else
         DESCRIPTION=""
     fi
