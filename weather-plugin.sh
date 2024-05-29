@@ -6,7 +6,7 @@
 
 APIKEY=`cat $HOME/.owm-key`
 # if you leave these empty location will be picked based on your ip-adres
-CITY_NAME='Paris'
+CITY_NAME=$1
 COUNTRY_CODE='FR'
 # Desired output language
 LANG="fr"
@@ -301,9 +301,7 @@ function setIcons {
 }
 
 function outputCompact {
-    OUTPUT="$WIND %{T$WEATHER_FONT_CODE}$ICON%{T-} $ERR_MSG$COLOR_TEXT_BEGIN$DESCRIPTION$COLOR_TEXT_END  $TEMP"
-    # echo "Output: $OUTPUT" >> "$HOME/.weather.log"
-    echo "$OUTPUT "
+    echo " 󰞁 $CITY_NAME : $WIND %{T$WEATHER_FONT_CODE}$ICON%{T-} $ERR_MSG$COLOR_TEXT_BEGIN$DESCRIPTION$COLOR_TEXT_END $TEMP "
 }
 
 getData $1
@@ -317,7 +315,6 @@ if [ $ERROR -eq 0 ]; then
     WIND=""
     TEMP=`echo $RESPONSE | jq .main.temp`
     if [ $DISPLAY_LABEL = "yes" ]; then
-        # DESCRIPTION=`echo "$RESPONSE" | jq .weather[0].description | tr -d '"' | sed 's/.*/\L&/; s/[a-z]*/\u&/g'`" "
         DESCRIPTION=`echo "$RESPONSE " | jq .weather[0].description | tr -d '"' `
     else
         DESCRIPTION=""
