@@ -265,7 +265,7 @@ function setIcons {
         fi
     fi
     if [ "$DISPLAY_WIND" = "yes" ] && [ `echo "$WINDFORCE >= $MIN_WIND" |bc -l` -eq 1 ]; then
-        WIND="%{T$WEATHER_FONT_CODE}$WINDICON %{T-}"
+        WIND="%{T$WEATHER_FONT_CODE}$WINDICON%{T-}"
         if [ $DISPLAY_FORCE = "yes" ]; then
             WIND="$WIND $COLOR_TEXT_BEGIN$WINDFORCE$COLOR_TEXT_END"
             if [ $DISPLAY_WIND_UNIT = "yes" ]; then
@@ -301,7 +301,7 @@ function setIcons {
 }
 
 function outputCompact {
-    echo " 󰞁 $CITY_NAME : $WIND %{T$WEATHER_FONT_CODE}$ICON%{T-} $ERR_MSG$COLOR_TEXT_BEGIN$DESCRIPTION$COLOR_TEXT_END $TEMP "
+    echo "󰞁  $CITY_NAME : $TEMP  $WIND%{T$WEATHER_FONT_CODE}$ICON%{T-} $ERR_MSG$COLOR_TEXT_BEGIN$DESCRIPTION$COLOR_TEXT_END "
 }
 
 getData $1
